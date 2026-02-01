@@ -332,6 +332,7 @@ h2 {
     margin: 20px 0;
 }
 
+
 .continent-btn {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
@@ -340,18 +341,20 @@ h2 {
     border-radius: 15px;
     font-size: 1em;
     cursor: pointer;
-    transition: transform 0.3s;
+    transition: all 0.3s;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 6px;
     min-height: 52px;
     touch-action: manipulation;
+    opacity: 0.6; /* Добавьте это */
 }
 
 .continent-btn:active {
     transform: scale(0.98);
 }
+
 
 .continent-btn .emoji {
     font-size: 1.8em;
@@ -865,67 +868,70 @@ h2 {
             </div>
         </div>
 
-        <!-- Setup Screen -->
-        <div class="setup-screen">
-            <h2>Choose Your Challenge</h2>
-            
-            <div class="mode-selector">
-                <h3>Game Mode</h3>
-                <div class="mode-buttons">
-                    <button class="mode-btn active" onclick="selectMode('normal')">🌍 Capital of Country</button>
-                    <button class="mode-btn" onclick="selectMode('reverse')">🏛️ Country of Capital</button>
-                </div>
-            </div>
-
-            <div class="continent-grid">
-                <button class="continent-btn" onclick="selectContinent('mixed')">
-                    <span class="emoji">🌍</span>
-                    <span>Mixed</span>
-                    <span class="count">193 countries</span>
-                </button>
-                <button class="continent-btn" onclick="selectContinent('africa')">
-                    <span class="emoji">🌍</span>
-                    <span>Africa</span>
-                    <span class="count">54 countries</span>
-                </button>
-                <button class="continent-btn" onclick="selectContinent('asia')">
-                    <span class="emoji">🌏</span>
-                    <span>Asia</span>
-                    <span class="count">48 countries</span>
-                </button>
-                <button class="continent-btn" onclick="selectContinent('europe')">
-                    <span class="emoji">🌍</span>
-                    <span>Europe</span>
-                    <span class="count">44 countries</span>
-                </button>
-                <button class="continent-btn" onclick="selectContinent('northAmerica')">
-                    <span class="emoji">🌎</span>
-                    <span>North America</span>
-                    <span class="count">23 countries</span>
-                </button>
-                <button class="continent-btn" onclick="selectContinent('southAmerica')">
-                    <span class="emoji">🌎</span>
-                    <span>South America</span>
-                    <span class="count">12 countries</span>
-                </button>
-                <button class="continent-btn" onclick="selectContinent('oceania')">
-                    <span class="emoji">🌏</span>
-                    <span>Oceania</span>
-                    <span class="count">14 countries</span>
-                </button>
-            </div>
-
-            <div class="question-count-selector">
-                <label>Number of Questions:</label>
-                <div class="count-options" id="countOptions">
-                    <button class="count-btn active" data-count="10">10</button>
-                    <button class="count-btn" data-count="20">20</button>
-                    <button class="count-btn" data-count="all">All</button>
-                </div>
-            </div>
-
-            <button class="back-btn" onclick="backToStart()">Back</button>
+   <!-- Setup Screen -->
+<div class="setup-screen">
+    <h2>Choose Your Challenge</h2>
+    
+    <div class="mode-selector">
+        <h3>Game Mode</h3>
+        <div class="mode-buttons">
+            <button class="mode-btn active" onclick="selectMode('normal')">🌍 Capital of Country</button>
+            <button class="mode-btn" onclick="selectMode('reverse')">🏛️ Country of Capital</button>
         </div>
+    </div>
+
+    <div class="continent-grid">
+        <button class="continent-btn" onclick="selectContinent('mixed')">
+            <span class="emoji">🌍</span>
+            <span>Mixed</span>
+            <span class="count">193 countries</span>
+        </button>
+        <button class="continent-btn" onclick="selectContinent('africa')">
+            <span class="emoji">🌍</span>
+            <span>Africa</span>
+            <span class="count">54 countries</span>
+        </button>
+        <button class="continent-btn" onclick="selectContinent('asia')">
+            <span class="emoji">🌏</span>
+            <span>Asia</span>
+            <span class="count">48 countries</span>
+        </button>
+        <button class="continent-btn" onclick="selectContinent('europe')">
+            <span class="emoji">🌍</span>
+            <span>Europe</span>
+            <span class="count">44 countries</span>
+        </button>
+        <button class="continent-btn" onclick="selectContinent('northAmerica')">
+            <span class="emoji">🌎</span>
+            <span>North America</span>
+            <span class="count">23 countries</span>
+        </button>
+        <button class="continent-btn" onclick="selectContinent('southAmerica')">
+            <span class="emoji">🌎</span>
+            <span>South America</span>
+            <span class="count">12 countries</span>
+        </button>
+        <button class="continent-btn" onclick="selectContinent('oceania')">
+            <span class="emoji">🌏</span>
+            <span>Oceania</span>
+            <span class="count">14 countries</span>
+        </button>
+    </div>
+
+    <div class="question-count-selector">
+        <label>Number of Questions:</label>
+        <div class="count-options" id="countOptions">
+            <button class="count-btn active" data-count="10">10</button>
+            <button class="count-btn" data-count="20">20</button>
+            <button class="count-btn" data-count="all">All</button>
+        </div>
+    </div>
+
+    <div style="display: flex; justify-content: center; gap: 10px;">
+        <button class="back-btn" onclick="backToStart()">Back</button>
+        <button class="start-btn" onclick="startGameManual()">Start Game</button>
+    </div>
+</div>
 
         <!-- Question Screen -->
         <div class="question-container">
@@ -1304,32 +1310,47 @@ h2 {
             displayContinentStats();
         }
 
-        function selectContinent(continent) {
-            currentContinent = continent;
-            updateCountButtons(continent);
-        }
+       function selectContinent(continent) {
+    currentContinent = continent;
+    // Убираем подсветку со всех кнопок континентов
+    document.querySelectorAll('.continent-btn').forEach(btn => {
+        btn.style.opacity = '0.6';
+    });
+    // Подсвечиваем выбранный континент
+    event.target.closest('.continent-btn').style.opacity = '1';
+    
+    updateCountButtons(continent);
+}
 
-        function updateCountButtons(continent) {
-            const countOptions = document.getElementById('countOptions');
-            const capitals = continent === 'mixed' ? getAllCapitals() : capitalsByContinent[continent];
-            const maxCount = capitals.length;
-            
-            countOptions.innerHTML = `
-                <button class="count-btn active" data-count="10">10</button>
-                <button class="count-btn" data-count="20">20</button>
-                ${maxCount >= 30 ? '<button class="count-btn" data-count="30">30</button>' : ''}
-                <button class="count-btn" data-count="all">All (${maxCount})</button>
-            `;
+function updateCountButtons(continent) {
+    const countOptions = document.getElementById('countOptions');
+    const capitals = continent === 'mixed' ? getAllCapitals() : capitalsByContinent[continent];
+    const maxCount = capitals.length;
+    
+    countOptions.innerHTML = `
+        <button class="count-btn active" data-count="10">10</button>
+        <button class="count-btn" data-count="20">20</button>
+        ${maxCount >= 30 ? '<button class="count-btn" data-count="30">30</button>' : ''}
+        <button class="count-btn" data-count="all">All (${maxCount})</button>
+    `;
 
-            document.querySelectorAll('.count-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.count-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    selectedQuestionCount = this.dataset.count === 'all' ? maxCount : parseInt(this.dataset.count);
-                    startGame();
-                });
-            });
-        }
+    // Обновляем обработчики кликов
+    document.querySelectorAll('.count-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.count-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            selectedQuestionCount = this.dataset.count === 'all' ? maxCount : parseInt(this.dataset.count);
+        });
+    });
+    
+    // Устанавливаем значение по умолчанию
+    selectedQuestionCount = 10;
+}
+
+// Новая функция для ручного старта
+function startGameManual() {
+    startGame();
+}
 
         function startGame() {
             document.querySelector('.setup-screen').classList.remove('active');
